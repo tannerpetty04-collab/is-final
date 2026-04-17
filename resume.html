@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume | Tanner Petty</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy:  #0a2342;
+            --ocean: #1e6091;
+            --teal:  #168aad;
+            --cyan:  #48cae4;
+            --bg:    #f4f7fa;
+        }
+
+        body { font-family: 'Open Sans', sans-serif; background: var(--bg); }
+
+        /* ── Navbar ── */
+        .navbar { background-color: var(--navy) !important; }
+        .navbar-brand, .nav-link { color: #fff !important; font-family: 'Montserrat', sans-serif; }
+        .nav-link:hover { color: var(--cyan) !important; }
+        .navbar-toggler-icon { filter: invert(1); }
+        .nav-link.active { color: var(--cyan) !important; }
+
+        /* ── Page header ── */
+        .page-header {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--ocean) 100%);
+            padding: 3.5rem 0 2.5rem;
+        }
+        .page-header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            color: #fff;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+        }
+        .page-header .contact-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.12);
+            border-radius: 50px;
+            padding: 5px 16px;
+            color: rgba(255,255,255,0.88);
+            font-size: 0.82rem;
+            margin: 4px 4px 0 0;
+        }
+
+        /* ── Cards ── */
+        .resume-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 1.75rem 2rem;
+            margin-bottom: 1.4rem;
+            box-shadow: 0 2px 14px rgba(10,35,66,0.08);
+        }
+
+        .card-section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--navy);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1.8px;
+            border-bottom: 2px solid var(--cyan);
+            padding-bottom: 8px;
+            margin-bottom: 1.25rem;
+        }
+
+        /* ── Experience entries ── */
+        .org-name {
+            font-weight: 700;
+            color: var(--ocean);
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .org-type {
+            font-weight: 400;
+            color: #6c757d;
+            font-size: 0.82rem;
+        }
+        .role-title {
+            font-weight: 600;
+            color: var(--navy);
+            font-size: 0.92rem;
+            margin-top: 2px;
+        }
+        .date-pill {
+            display: inline-block;
+            background: #e6f3f9;
+            color: var(--ocean);
+            border-radius: 20px;
+            padding: 3px 13px;
+            font-size: 0.76rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .loc-text { font-size: 0.78rem; color: #888; }
+
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 8px 0 0;
+        }
+        .bullet-list li {
+            position: relative;
+            padding: 2px 0 2px 1.4rem;
+            font-size: 0.875rem;
+            color: #3d4d5c;
+            line-height: 1.55;
+        }
+        .bullet-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--teal);
+            font-size: 0.8rem;
+            top: 3px;
+        }
+
+        .exp-divider { border: 0; border-top: 1px solid #eef1f4; margin: 1.25rem 0; }
+
+        /* ── Skill chips ── */
+        .chip {
+            display: inline-block;
+            border-radius: 20px;
+            padding: 4px 13px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            margin: 3px;
+        }
+        .chip-dark { background: var(--navy); color: #fff; }
+        .chip-light { background: #e6f3f9; color: var(--ocean); }
+        .chip-accent { background: rgba(22,138,173,0.12); color: var(--teal); }
+
+        /* ── Footer ── */
+        footer { background: #060f1a; color: rgba(255,255,255,0.6); }
+        footer a { color: var(--cyan); text-decoration: none; }
+        footer a:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+    <!-- ══════════════  NAVBAR  ══════════════ -->
+    <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html">
+                <i class="fas fa-fish" style="color:var(--cyan)"></i>
+                Tanner Petty
+            </a>
+            <button class="navbar-toggler border-0" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav ms-auto gap-1">
+                    <li class="nav-item"><a class="nav-link fw-semibold px-3" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold px-3 active" href="resume.html">Resume</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold px-3" href="scratch.html">Spearfishing</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold px-3" href="app.html">Dive App</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ══════════════  PAGE HEADER  ══════════════ -->
+    <div class="page-header">
+        <div class="container">
+            <h1 class="mb-3">Tanner T. Petty</h1>
+            <div>
+                <span class="contact-chip"><i class="fas fa-envelope fa-xs"></i>tpetty4@byu.edu</span>
+                <span class="contact-chip"><i class="fas fa-phone fa-xs"></i>(805) 387-0173</span>
+                <span class="contact-chip"><i class="fas fa-map-marker-alt fa-xs"></i>Provo, UT</span>
+                <span class="contact-chip"><i class="fab fa-linkedin fa-xs"></i>
+                    <a href="https://www.linkedin.com/in/petty-tanner" target="_blank" rel="noopener"
+                       style="color:inherit;text-decoration:none;">LinkedIn</a>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════  MAIN CONTENT  ══════════════ -->
+    <div class="container py-4">
+        <div class="row g-4">
+
+            <!-- ── LEFT COLUMN: Education + Experience + Leadership ── -->
+            <div class="col-lg-8">
+
+                <!-- EDUCATION -->
+                <div class="resume-card">
+                    <div class="card-section-title">
+                        <i class="fas fa-graduation-cap me-2"></i>Education
+                    </div>
+                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                        <div>
+                            <div class="org-name">Brigham Young University – Marriott School of Business</div>
+                            <div class="role-title">Pre-Business</div>
+                        </div>
+                        <div class="text-end">
+                            <div class="date-pill mb-1">Expected Apr 2028</div><br>
+                            <span class="loc-text"><i class="fas fa-map-marker-alt me-1"></i>Provo, UT</span>
+                        </div>
+                    </div>
+                    <ul class="bullet-list mt-2">
+                        <li>GPA: 3.64 / 4.00</li>
+                        <li>BYU Finance Society: Real Estate Association, Private Equity / Venture Capital Association, PBWM Association</li>
+                        <li>Ronald Reagan Citizen Scholar Institute Diploma Seal Recipient</li>
+                        <li>AP &amp; International Baccalaureate Student</li>
+                    </ul>
+                </div>
+
+                <!-- EXPERIENCE -->
+                <div class="resume-card">
+                    <div class="card-section-title">
+                        <i class="fas fa-briefcase me-2"></i>Experience
+                    </div>
+
+                    <!-- Integris Health -->
+                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                        <div>
+                            <div class="org-name">Integris Health <span class="org-type">(Not-for-profit Healthcare System)</span></div>
+                            <div class="role-title">Incoming FP&amp;A Intern</div>
+                        </div>
+                        <div class="text-end">
+                            <div class="date-pill mb-1">Jun 2026 – Aug 2026</div><br>
+                            <span class="loc-text"><i class="fas fa-map-marker-alt me-1"></i>Oklahoma City, OK</span>
+                        </div>
+                    </div>
+                    <ul class="bullet-list">
+                        <li>Selected to lead a 10-week real estate project, identifying and performing analysis on various development locations</li>
+                        <li>Tasked to analyze payer mix trends and reimbursement rates, projecting net patient service revenue across departments</li>
+                        <li>Will conduct financial analysis and capital budgeting to support investment decisions and improve fiscal efficiency</li>
+                        <li>Will evaluate CapEx proposals for medical equipment utilizing NPV and IRR models, guiding investment decisions</li>
+                    </ul>
+
+                    <hr class="exp-divider">
+
+                    <!-- VARA -->
+                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                        <div>
+                            <div class="org-name">VARA Salon Suites <span class="org-type">(Co-working Salon Developer)</span></div>
+                            <div class="role-title">Development Project Intern</div>
+                        </div>
+                        <div class="text-end">
+                            <div class="date-pill mb-1">Feb 2026 – Apr 2026</div><br>
+                            <span class="loc-text"><i class="fas fa-map-marker-alt me-1"></i>Provo, UT</span>
+                        </div>
+                    </div>
+                    <ul class="bullet-list">
+                        <li>Underwrote a co-working salon development, projecting metrics like DSCR, equity multiple, NOI growth, and YoC</li>
+                        <li>Conducted extensive market research evaluating competitor lease rates, identifying high-demand locations for suites</li>
+                        <li>Delivered data-driven financial insights, facilitating strategic decisions on capital allocation and site acquisition</li>
+                    </ul>
+
+                    <hr class="exp-divider">
+
+                    <!-- Tesani -->
+                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                        <div>
+                            <div class="org-name">Tesani Companies <span class="org-type">(Private Equity–Backed Fintech Firm)</span></div>
+                            <div class="role-title">Credit Analyst</div>
+                        </div>
+                        <div class="text-end">
+                            <div class="date-pill mb-1">Oct 2025 – Present</div><br>
+                            <span class="loc-text"><i class="fas fa-map-marker-alt me-1"></i>Provo, UT</span>
+                        </div>
+                    </div>
+                    <ul class="bullet-list">
+                        <li>Leveraged Excel to analyze detailed loan schedules, monitoring payment status, interest accrual, and principal reduction</li>
+                        <li>Identified $10,000 in monthly budget surpluses for 100+ borrowers, optimizing repayment schedules, decreasing default</li>
+                        <li>Audited loan documentation and financial records within lending software to ensure 100% data integrity and compliance</li>
+                    </ul>
+
+                    <hr class="exp-divider">
+
+                    <!-- BackNine -->
+                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                        <div>
+                            <div class="org-name">BackNine Labor &amp; Lighting <span class="org-type">(Holiday Lighting Company)</span></div>
+                            <div class="role-title">LLC Owner</div>
+                        </div>
+                        <div class="text-end">
+                            <div class="date-pill mb-1">Oct 2020 – Present</div><br>
+                            <span class="loc-text"><i class="fas fa-map-marker-alt me-1"></i>Simi Valley, CA</span>
+                        </div>
+                    </div>
+                    <ul class="bullet-list">
+                        <li>Maintained financial records and detailed Excel spreadsheets accurately pricing services for 60+ clients, year to year</li>
+                        <li>Advertised services across local community forums and networks, scaling client base by 500% in prior 4 years</li>
+                    </ul>
+
+                    <hr class="exp-divider">
+
+                    <!-- BYU Case Competition -->
+                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                        <div>
+                            <div class="org-name">BYU Real Estate Association</div>
+                            <div class="role-title">Case Competition Participant</div>
+                        </div>
+                        <div class="text-end">
+                            <div class="date-pill mb-1">Oct 2025</div><br>
+                            <span class="loc-text"><i class="fas fa-map-marker-alt me-1"></i>Provo, UT</span>
+                        </div>
+                    </div>
+                    <ul class="bullet-list">
+                        <li>Underwrote a $43M multifamily apartment, performing analysis of rent rolls, T-12 financials, and market comparables</li>
+                        <li>Analyzed financing scenarios, including debt service coverage and leverage ratios, to optimize capital structure</li>
+                        <li>Applied value-add and lease-up assumptions to forecast post-renovation performance and potential exit valuation</li>
+                    </ul>
+                </div>
+
+                <!-- LEADERSHIP -->
+                <div class="resume-card">
+                    <div class="card-section-title">
+                        <i class="fas fa-users me-2"></i>Leadership &amp; Service
+                    </div>
+
+                    <!-- Mission -->
+                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                        <div>
+                            <div class="org-name">The Church of Jesus Christ of Latter-day Saints</div>
+                            <div class="role-title">Volunteer Representative</div>
+                        </div>
+                        <div class="text-end">
+                            <div class="date-pill mb-1">Jul 2023 – Jul 2025</div><br>
+                            <span class="loc-text"><i class="fas fa-map-marker-alt me-1"></i>Amsterdam, Netherlands</span>
+                        </div>
+                    </div>
+                    <ul class="bullet-list">
+                        <li>Led and prepared leadership training for over 100 full-time volunteers, developing language, study, and teaching skills</li>
+                        <li>Counseled with leaders in 10+ struggling cities, setting quarterly goals to drive measurable improvement and change</li>
+                    </ul>
+
+                    <hr class="exp-divider">
+
+                    <!-- Reagan Library -->
+                    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                        <div>
+                            <div class="org-name">Ronald Reagan Presidential Library</div>
+                            <div class="role-title">Project Coordinator</div>
+                        </div>
+                        <div class="text-end">
+                            <div class="date-pill mb-1">Aug 2020 – May 2021</div><br>
+                            <span class="loc-text"><i class="fas fa-map-marker-alt me-1"></i>Simi Valley, CA</span>
+                        </div>
+                    </div>
+                    <ul class="bullet-list">
+                        <li>Partnered with Operation Gratitude and the Reagan Library to lead a project making 1,000+ paracord bracelets for troops</li>
+                    </ul>
+                </div>
+
+            </div><!-- /col-lg-8 -->
+
+            <!-- ── RIGHT COLUMN: Skills + Honors ── -->
+            <div class="col-lg-4">
+
+                <!-- Technical Skills -->
+                <div class="resume-card">
+                    <div class="card-section-title">
+                        <i class="fas fa-laptop-code me-2"></i>Technical Skills
+                    </div>
+                    <div>
+                        <span class="chip chip-dark">Excel (Advanced)</span>
+                        <span class="chip chip-dark">SQL</span>
+                        <span class="chip chip-dark">Tableau</span>
+                        <span class="chip chip-dark">HTML / CSS</span>
+                        <span class="chip chip-dark">Database Modeling</span>
+                        <span class="chip chip-dark">Financial Modeling</span>
+                        <span class="chip chip-dark">Real Estate UW</span>
+                        <span class="chip chip-dark">NPV &amp; IRR</span>
+                        <span class="chip chip-dark">Capital Budgeting</span>
+                        <span class="chip chip-dark">Excel Solver</span>
+                    </div>
+                </div>
+
+                <!-- Finance Competencies -->
+                <div class="resume-card">
+                    <div class="card-section-title">
+                        <i class="fas fa-chart-bar me-2"></i>Finance Competencies
+                    </div>
+                    <div>
+                        <span class="chip chip-accent">FP&amp;A</span>
+                        <span class="chip chip-accent">Credit Analysis</span>
+                        <span class="chip chip-accent">Real Estate Dev.</span>
+                        <span class="chip chip-accent">DSCR / NOI</span>
+                        <span class="chip chip-accent">Rent Roll Analysis</span>
+                        <span class="chip chip-accent">Market Research</span>
+                        <span class="chip chip-accent">CapEx Planning</span>
+                        <span class="chip chip-accent">Loan Underwriting</span>
+                    </div>
+                </div>
+
+                <!-- Languages & Communication -->
+                <div class="resume-card">
+                    <div class="card-section-title">
+                        <i class="fas fa-globe me-2"></i>Languages &amp; Communication
+                    </div>
+                    <div>
+                        <span class="chip chip-light">English (Native)</span>
+                        <span class="chip chip-light">Dutch (Working Proficiency)</span>
+                        <span class="chip chip-light">Leadership Training</span>
+                        <span class="chip chip-light">Public Speaking</span>
+                    </div>
+                </div>
+
+                <!-- Honors & Awards -->
+                <div class="resume-card">
+                    <div class="card-section-title">
+                        <i class="fas fa-award me-2"></i>Honors &amp; Awards
+                    </div>
+                    <ul class="bullet-list">
+                        <li>Eagle Scout — Boy Scouts of America</li>
+                        <li>Ronald Reagan Citizen Scholar Diploma Seal</li>
+                        <li>AP &amp; International Baccalaureate Diploma</li>
+                    </ul>
+                </div>
+
+                <!-- Outside Interests -->
+                <div class="resume-card">
+                    <div class="card-section-title">
+                        <i class="fas fa-star me-2"></i>Interests &amp; Achievements
+                    </div>
+                    <ul class="bullet-list">
+                        <li>Spearfishing — caught a 50-lb yellowfin tuna</li>
+                        <li>Golf — tournament score of 70 (Top 10 finish at CJG Spring Shootout)</li>
+                        <li>Top 3 finish in a competitive 1-mile swim race</li>
+                        <li>Mountain biking enthusiast</li>
+                        <li>Working proficiency in Dutch</li>
+                    </ul>
+                </div>
+
+            </div><!-- /col-lg-4 -->
+
+        </div><!-- /row -->
+    </div><!-- /container -->
+
+    <!-- ══════════════  FOOTER  ══════════════ -->
+    <footer class="py-4 mt-2">
+        <div class="container text-center">
+            <p class="fw-bold mb-1" style="color:#fff;">Tanner T. Petty</p>
+            <p class="mb-3 small"><a href="mailto:tpetty4@byu.edu">tpetty4@byu.edu</a></p>
+            <div class="mb-3">
+                <a href="https://www.linkedin.com/in/petty-tanner" target="_blank" rel="noopener" class="me-3">
+                    <i class="fab fa-linkedin fa-lg"></i>
+                </a>
+                <a href="https://github.com/tannerpetty" target="_blank" rel="noopener" class="me-3">
+                    <i class="fab fa-github fa-lg"></i>
+                </a>
+                <a href="mailto:tpetty4@byu.edu">
+                    <i class="fas fa-envelope fa-lg"></i>
+                </a>
+            </div>
+            <p class="mb-0 small" style="color:rgba(255,255,255,0.3);">
+                &copy; 2025 Tanner T. Petty &nbsp;&middot;&nbsp; BYU IS 201
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

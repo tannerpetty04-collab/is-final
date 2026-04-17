@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freedive Trainer | Tanner Petty</title>
+
+    <!-- ══ All styles inline per requirements ══ -->
+    <style>
+        :root {
+            --navy:    #0a2342;
+            --ocean:   #1e6091;
+            --teal:    #168aad;
+            --cyan:    #48cae4;
+            --green:   #2ecc71;
+            --orange:  #e67e22;
+            --red:     #e74c3c;
+            --bg:      #07192a;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: #e0eaf2;
+            min-height: 100vh;
+        }
+
+        /* ── Top nav ── */
+        .top-nav {
+            background: rgba(10,35,66,0.95);
+            backdrop-filter: blur(10px);
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            border-bottom: 1px solid rgba(72,202,228,0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .top-nav .brand {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #fff;
+            text-decoration: none;
+            margin-right: auto;
+        }
+        .top-nav a {
+            font-size: 0.82rem;
+            color: var(--cyan);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+        .top-nav a:hover { color: #fff; }
+
+        /* ── Page layout ── */
+        .app-wrapper {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 36px 20px 60px;
+        }
+
+        /* ── Header ── */
+        .app-header { text-align: center; margin-bottom: 36px; }
+        .app-header h1 {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+        .app-header p {
+            color: rgba(255,255,255,0.62);
+            font-size: 0.95rem;
+            margin-top: 8px;
+            max-width: 520px;
+            margin-inline: auto;
+            line-height: 1.6;
+        }
+        .cyan-text { color: var(--cyan); }
+
+        /* ── Card ── */
+        .card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(72,202,228,0.18);
+            border-radius: 18px;
+            padding: 28px 30px;
+            margin-bottom: 22px;
+        }
+        .card h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--cyan);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+        }
+
+        /* ── Form controls ── */
+        .form-row {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            margin-bottom: 14px;
+        }
+        .form-group { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 140px; }
+        label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        input[type="number"], select {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(72,202,228,0.3);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            padding: 10px 14px;
+            outline: none;
+            width: 100%;
+            transition: border-color 0.2s;
+        }
+        input[type="number"]:focus, select:focus {
+            border-color: var(--cyan);
+            background: rgba(72,202,228,0.1);
+        }
+        select option { background: #0a2342; }
+
+        /* ── Table type pills ── */
+        .pill-group { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+        .pill {
+            padding: 9px 22px;
+            border-radius: 50px;
+            border: 2px solid rgba(72,202,228,0.3);
+            background: transparent;
+            color: rgba(255,255,255,0.65);
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.22s;
+            letter-spacing: 0.5px;
+        }
+        .pill:hover { border-color: var(--cyan); color: var(--cyan); }
+        .pill.active {
+            background: var(--teal);
+            border-color: var(--teal);
+            color: #fff;
+        }
+
+        /* ── Info box ── */
+        .info-box {
+            background: rgba(72,202,228,0.07);
+            border-left: 3px solid var(--cyan);
+            border-radius: 0 8px 8px 0;
+            padding: 12px 16px;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.72);
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+        .info-box strong { color: var(--cyan); }
+
+        /* ── Generate button ── */
+        .btn-generate {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--ocean), var(--teal));
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.25s;
+            margin-top: 4px;
+        }
+        .btn-generate:hover {
+            background: linear-gradient(135deg, var(--teal), var(--cyan));
+            color: var(--navy);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(72,202,228,0.28);
+        }
+        .btn-generate:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+        /* ── Training table display ── */
+        .table-display { display: none; }
+        .table-display.visible { display: block; }
+
+        .table-grid {
+            display: grid;
+            grid-template-columns: 40px 1fr 1fr 1fr;
+            gap: 4px;
+            margin-bottom: 20px;
+        }
+        .tg-header {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(72,202,228,0.2);
+        }
+        .tg-cell {
+            padding: 11px 12px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.04);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.3s;
+        }
+        .tg-cell.round-num {
+            justify-content: center;
+            font-weight: 700;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.85rem;
+            background: transparent;
+        }
+        .tg-cell.phase-rest { color: #74b9e8; }
+        .tg-cell.phase-hold { color: #a8e6cf; }
+        .tg-cell.active-row { background: rgba(72,202,228,0.15) !important; border: 1px solid rgba(72,202,228,0.4); }
+        .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+        .dot-rest { background: var(--cyan); }
+        .dot-hold { background: var(--green); }
+        .dot-done { background: rgba(255,255,255,0.2); }
+
+        /* ── Timer display ── */
+        .timer-card {
+            text-align: center;
+            padding: 36px 28px;
+            position: relative;
+            overflow: hidden;
+        }
+        .timer-phase-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+            transition: color 0.4s;
+        }
+        .timer-display {
+            font-size: clamp(4rem, 12vw, 7rem);
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+            color: #fff;
+            letter-spacing: -2px;
+            transition: color 0.4s;
+            font-family: 'Courier New', monospace;
+        }
+        .timer-sub {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 10px;
+            min-height: 22px;
+        }
+
+        /* Circular progress ring */
+        .progress-ring-wrap {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 24px;
+        }
+        .progress-ring {
+            transform: rotate(-90deg);
+            position: absolute;
+            inset: 0;
+        }
+        .progress-ring-bg { fill: none; stroke: rgba(255,255,255,0.08); stroke-width: 8; }
+        .progress-ring-fill {
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.9s linear, stroke 0.4s;
+        }
+        .timer-inner {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .timer-inner .big-time {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            line-height: 1;
+        }
+        .timer-inner .phase-small {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+
+        .round-indicator {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 20px;
+        }
+        .round-dots {
+            display: flex;
+            justify-content: center;
+            gap: 7px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .rdot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            transition: all 0.3s;
+        }
+        .rdot.done { background: rgba(255,255,255,0.3); }
+        .rdot.rest { background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
+        .rdot.hold { background: var(--green); box-shadow: 0 0 8px var(--green); }
+
+        /* ── Timer buttons ── */
+        .timer-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+        .btn-timer {
+            padding: 13px 30px;
+            border-radius: 50px;
+            border: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            transition: all 0.22s;
+        }
+        .btn-start { background: var(--green); color: #fff; }
+        .btn-start:hover { background: #27ae60; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(46,204,113,0.35); }
+        .btn-pause { background: var(--orange); color: #fff; }
+        .btn-pause:hover { background: #d35400; }
+        .btn-reset { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); }
+        .btn-reset:hover { background: rgba(255,255,255,0.18); }
+        .btn-timer:disabled { opacity: 0.35; cursor: not-allowed; transform: none !important; }
+
+        /* ── Complete banner ── */
+        .complete-banner {
+            display: none;
+            text-align: center;
+            padding: 28px;
+            background: linear-gradient(135deg, rgba(46,204,113,0.15), rgba(22,138,173,0.15));
+            border: 1px solid rgba(46,204,113,0.4);
+            border-radius: 16px;
+            margin-top: 16px;
+        }
+        .complete-banner.show { display: block; }
+        .complete-banner h3 { color: var(--green); font-size: 1.4rem; margin-bottom: 8px; }
+        .complete-banner p { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+
+        /* ── How it works section ── */
+        .how-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        @media (max-width: 520px) { .how-grid { grid-template-columns: 1fr; } }
+        .how-item {
+            background: rgba(255,255,255,0.04);
+            border-radius: 12px;
+            padding: 16px 18px;
+        }
+        .how-item h4 { font-size: 0.9rem; color: var(--cyan); margin-bottom: 6px; font-weight: 700; }
+        .how-item p { font-size: 0.82rem; color: rgba(255,255,255,0.62); line-height: 1.55; }
+
+        /* ── Back link ── */
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.82rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .back-link:hover { color: var(--cyan); }
+
+        /* ── Pulse animation for HOLD phase ── */
+        @keyframes pulse-hold {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(46,204,113,0.4); }
+            50%       { box-shadow: 0 0 0 18px rgba(46,204,113,0); }
+        }
+        .pulse-hold { animation: pulse-hold 2s infinite; }
+
+        @keyframes pulse-rest {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(72,202,228,0.4); }
+            50%       { box-shadow: 0 0 0 18px rgba(72,202,228,0); }
+        }
+        .pulse-rest { animation: pulse-rest 1.5s infinite; }
+    </style>
+</head>
+<body>
+
+    <!-- ══ Nav ══ -->
+    <nav class="top-nav">
+        <a href="scratch.html" class="brand">&#129348; Freedive Trainer</a>
+        <a href="index.html">Home</a>
+        <a href="resume.html">Resume</a>
+        <a href="scratch.html">Spearfishing</a>
+    </nav>
+
+    <div class="app-wrapper">
+
+        <!-- ══ Header ══ -->
+        <div class="app-header">
+            <h1>&#129328; Freedive <span class="cyan-text">Breath-Hold Trainer</span></h1>
+            <p>
+                Train your CO&#8322; tolerance and O&#8322; efficiency with structured interval tables
+                used by world-class freedivers and spearfishers. Enter your max breath-hold,
+                choose a table type, and follow the guided timer.
+            </p>
+        </div>
+
+        <!-- ══ Setup Card ══ -->
+        <div class="card">
+            <h2>&#9881; Setup Your Table</h2>
+
+            <!-- Table type selection -->
+            <div style="margin-bottom:18px;">
+                <label style="display:block; margin-bottom:10px;">Table Type</label>
+                <div class="pill-group">
+                    <button class="pill active" onclick="selectTableType('co2', this)">CO&#8322; Table</button>
+                    <button class="pill"        onclick="selectTableType('o2',  this)">O&#8322; Table</button>
+                </div>
+            </div>
+
+            <!-- Info box (changes by type) -->
+            <div class="info-box" id="infoBox">
+                <strong>CO&#8322; Table</strong> — Builds tolerance to carbon dioxide buildup.
+                Hold time stays constant; rest time <em>decreases</em> each round.
+                Trains you to stay calm as urge-to-breathe sensations increase.
+            </div>
+
+            <!-- Inputs -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Your Max Breath-Hold (mm:ss)</label>
+                    <div style="display:flex; gap:8px;">
+                        <input type="number" id="maxMin" placeholder="min" min="0" max="10" value="1" style="width:80px; flex:none;">
+                        <input type="number" id="maxSec" placeholder="sec" min="0" max="59" value="30" style="width:80px; flex:none;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Number of Rounds</label>
+                    <select id="numRounds">
+                        <option value="6">6 rounds</option>
+                        <option value="8" selected>8 rounds</option>
+                        <option value="10">10 rounds</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn-generate" onclick="generateTable()">
+                &#9654; Generate Training Table
+            </button>
+        </div>
+
+        <!-- ══ Table Display Card ══ -->
+        <div class="card table-display" id="tableDisplay">
+            <h2>&#128203; Your Training Table</h2>
+
+            <div class="table-grid" id="tableGrid">
+                <!-- Populated by JS -->
+            </div>
+
+            <!-- Timer section -->
+            <div class="timer-card card" style="margin:0;">
+                <div class="round-indicator" id="roundIndicator">Round 1 of 8</div>
+                <div class="round-dots" id="roundDots"></div>
+
+                <!-- Circular progress ring -->
+                <div class="progress-ring-wrap" id="ringWrap">
+                    <svg class="progress-ring" viewBox="0 0 180 180" width="180" height="180">
+                        <circle class="progress-ring-bg" cx="90" cy="90" r="82"/>
+                        <circle class="progress-ring-fill" id="ringFill" cx="90" cy="90" r="82"
+                                stroke-dasharray="515" stroke-dashoffset="0" stroke="var(--cyan)"/>
+                    </svg>
+                    <div class="timer-inner">
+                        <div class="big-time" id="ringTime">0:00</div>
+                        <div class="phase-small" id="ringPhase" style="color:var(--cyan);">REST</div>
+                    </div>
+                </div>
+
+                <div class="timer-phase-label" id="phaseLabel" style="color:var(--cyan);">
+                    BREATHE UP — GET READY
+                </div>
+                <div class="timer-sub" id="timerSub">Press Start when you're ready</div>
+
+                <div class="timer-buttons">
+                    <button class="btn-timer btn-start"  id="btnStart"  onclick="startTimer()">&#9654; Start</button>
+                    <button class="btn-timer btn-pause"  id="btnPause"  onclick="pauseTimer()"  disabled>&#9646;&#9646; Pause</button>
+                    <button class="btn-timer btn-reset"  id="btnReset"  onclick="resetTimer()">&#8635; Reset</button>
+                </div>
+            </div>
+
+            <!-- Complete banner -->
+            <div class="complete-banner" id="completeBanner">
+                <h3>&#127881; Session Complete!</h3>
+                <p id="completeSummary"></p>
+                <p style="margin-top:8px; font-size:0.8rem; color:rgba(255,255,255,0.45);">
+                    Rest at least 2 hours before diving. Never train to blackout. Always dive with a buddy.
+                </p>
+            </div>
+        </div>
+
+        <!-- ══ How It Works Card ══ -->
+        <div class="card">
+            <h2>&#128218; How It Works</h2>
+            <div class="how-grid">
+                <div class="how-item">
+                    <h4>CO&#8322; Table</h4>
+                    <p>Rest time decreases each round while hold time stays constant. Trains your body to handle rising CO&#8322; — the main trigger of the urge to breathe. 8 rounds over ~20 min.</p>
+                </div>
+                <div class="how-item">
+                    <h4>O&#8322; Table</h4>
+                    <p>Hold time increases each round while rest stays constant. Trains your body to consume oxygen more efficiently. Best done after CO&#8322; tables. 8 rounds over ~25 min.</p>
+                </div>
+                <div class="how-item">
+                    <h4>REST Phase</h4>
+                    <p>Breathe slowly and deeply through your nose. Relax every muscle. Don't hyperventilate — just breathe naturally to recover between holds.</p>
+                </div>
+                <div class="how-item">
+                    <h4>HOLD Phase</h4>
+                    <p>Take one final deep breath, then hold. Stay calm, keep still. Focus on relaxation, not the discomfort. The urge to breathe is just CO&#8322; — you have more oxygen than you think.</p>
+                </div>
+            </div>
+            <p style="margin-top:16px; padding:12px 16px; background:rgba(231,76,60,0.1); border-radius:8px; font-size:0.8rem; color:rgba(255,255,255,0.6); border-left:3px solid var(--red);">
+                &#9888; <strong style="color:#e74c3c;">Safety Warning:</strong> Never practice breath-holds alone or in water.
+                Always train on dry land, seated. Never train in a pool or ocean without a certified buddy watching you.
+                Shallow water blackout can occur without warning.
+            </p>
+        </div>
+
+        <a href="scratch.html" class="back-link">&#8592; Back to Spearfishing Page</a>
+    </div>
+
+    <!-- ══ All JavaScript inline per requirements ══ -->
+    <script>
+        // ── State ──
+        let tableType   = 'co2';
+        let tableData   = [];   // [{rest: sec, hold: sec}, ...]
+        let currentStep = 0;    // index into [rest0, hold0, rest1, hold1, ...]
+        let steps       = [];   // flat array of {phase:'rest'|'hold', seconds, roundIndex}
+        let timerInterval = null;
+        let secondsLeft = 0;
+        let paused      = false;
+        let totalSeconds = 0;
+        const CIRCUMFERENCE = 2 * Math.PI * 82; // ring radius = 82
+
+        // ── Table type selection ──
+        function selectTableType(type, btn) {
+            tableType = type;
+            document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            const box = document.getElementById('infoBox');
+            if (type === 'co2') {
+                box.innerHTML = '<strong>CO\u2082 Table</strong> \u2014 Builds tolerance to carbon dioxide buildup. '
+                    + 'Hold time stays constant; rest time <em>decreases</em> each round. '
+                    + 'Trains you to stay calm as urge-to-breathe sensations increase.';
+            } else {
+                box.innerHTML = '<strong>O\u2082 Table</strong> \u2014 Improves oxygen efficiency. '
+                    + 'Rest time stays constant; hold time <em>increases</em> each round. '
+                    + 'Best done on dry land after a CO\u2082 table session.';
+            }
+        }
+
+        // ── Generate table ──
+        function generateTable() {
+            const maxMin = parseInt(document.getElementById('maxMin').value) || 1;
+            const maxSec = parseInt(document.getElementById('maxSec').value) || 0;
+            const numRounds = parseInt(document.getElementById('numRounds').value);
+            const maxTotal  = maxMin * 60 + maxSec;
+
+            if (maxTotal < 10) {
+                alert('Please enter a breath-hold time of at least 10 seconds.');
+                return;
+            }
+
+            tableData = [];
+            steps     = [];
+
+            if (tableType === 'co2') {
+                // Hold = 50% of max, constant
+                // Rest starts at 2× hold, decreases by (hold / numRounds) each round
+                const hold      = Math.round(maxTotal * 0.5);
+                const restStart = hold * 2;
+                const restStep  = Math.round(hold / numRounds);
+
+                for (let i = 0; i < numRounds; i++) {
+                    const rest = Math.max(restStart - restStep * i, 15);
+                    tableData.push({ rest, hold });
+                }
+            } else {
+                // Rest = 2 min constant
+                // Hold starts at 40% of max, increases by (max - start) / (numRounds-1)
+                const rest      = 120;
+                const holdStart = Math.round(maxTotal * 0.40);
+                const holdStep  = Math.round((maxTotal - holdStart) / (numRounds - 1));
+
+                for (let i = 0; i < numRounds; i++) {
+                    const hold = Math.min(holdStart + holdStep * i, maxTotal);
+                    tableData.push({ rest, hold });
+                }
+            }
+
+            // Build flat steps array
+            tableData.forEach((row, idx) => {
+                steps.push({ phase: 'rest', seconds: row.rest,  roundIndex: idx });
+                steps.push({ phase: 'hold', seconds: row.hold, roundIndex: idx });
+            });
+
+            renderTable(numRounds);
+            resetTimer();
+            document.getElementById('tableDisplay').classList.add('visible');
+            document.getElementById('tableDisplay').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ── Render table grid ──
+        function renderTable(numRounds) {
+            const grid = document.getElementById('tableGrid');
+            grid.innerHTML = `
+                <div class="tg-header">#</div>
+                <div class="tg-header">REST</div>
+                <div class="tg-header">HOLD</div>
+                <div class="tg-header">TOTAL</div>
+            `;
+            tableData.forEach((row, i) => {
+                const total = row.rest + row.hold;
+                grid.innerHTML += `
+                    <div class="tg-cell round-num" id="rn${i}">${i + 1}</div>
+                    <div class="tg-cell phase-rest" id="rr${i}">
+                        <span class="dot dot-rest"></span>${fmt(row.rest)}
+                    </div>
+                    <div class="tg-cell phase-hold" id="rh${i}">
+                        <span class="dot dot-hold"></span>${fmt(row.hold)}
+                    </div>
+                    <div class="tg-cell" id="rt${i}" style="color:rgba(255,255,255,0.45);">
+                        ${fmt(total)}
+                    </div>
+                `;
+            });
+
+            // Round dots
+            const dotsEl = document.getElementById('roundDots');
+            dotsEl.innerHTML = '';
+            for (let i = 0; i < numRounds; i++) {
+                dotsEl.innerHTML += `<div class="rdot" id="dot${i}"></div>`;
+            }
+        }
+
+        // ── Format seconds → m:ss ──
+        function fmt(s) {
+            const m = Math.floor(s / 60);
+            const sec = s % 60;
+            return `${m}:${sec.toString().padStart(2, '0')}`;
+        }
+
+        // ── Timer controls ──
+        function startTimer() {
+            if (paused) {
+                paused = false;
+                document.getElementById('btnStart').disabled = true;
+                document.getElementById('btnPause').disabled = false;
+                runTick();
+                return;
+            }
+            if (currentStep >= steps.length) return;
+
+            document.getElementById('btnStart').disabled = true;
+            document.getElementById('btnPause').disabled = false;
+            document.getElementById('completeBanner').classList.remove('show');
+
+            loadStep(currentStep);
+            runTick();
+        }
+
+        function pauseTimer() {
+            paused = true;
+            clearInterval(timerInterval);
+            document.getElementById('btnStart').disabled  = false;
+            document.getElementById('btnPause').disabled  = true;
+            document.getElementById('btnStart').textContent = '▶ Resume';
+            document.getElementById('phaseLabel').textContent = 'PAUSED';
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            paused      = false;
+            currentStep = 0;
+            secondsLeft = 0;
+
+            document.getElementById('btnStart').disabled  = false;
+            document.getElementById('btnPause').disabled  = true;
+            document.getElementById('btnStart').textContent = '▶ Start';
+            document.getElementById('phaseLabel').textContent = 'BREATHE UP \u2014 GET READY';
+            document.getElementById('timerSub').textContent   = 'Press Start when you\'re ready';
+            document.getElementById('ringTime').textContent   = '0:00';
+            document.getElementById('ringPhase').textContent  = '';
+            document.getElementById('ringFill').style.strokeDashoffset = '0';
+            document.getElementById('ringFill').style.stroke  = 'var(--cyan)';
+            document.getElementById('ringWrap').className     = 'progress-ring-wrap';
+            document.getElementById('completeBanner').classList.remove('show');
+
+            const numRounds = tableData.length;
+            for (let i = 0; i < numRounds; i++) {
+                const cells = ['rn','rr','rh','rt'];
+                cells.forEach(c => {
+                    const el = document.getElementById(c + i);
+                    if (el) el.classList.remove('active-row');
+                });
+                const dot = document.getElementById('dot' + i);
+                if (dot) { dot.className = 'rdot'; }
+            }
+            updateRoundIndicator(0);
+        }
+
+        function loadStep(idx) {
+            if (idx >= steps.length) { finishSession(); return; }
+            const step  = steps[idx];
+            secondsLeft = step.seconds;
+            totalSeconds = step.seconds;
+
+            const isRest = step.phase === 'rest';
+            const color  = isRest ? 'var(--cyan)' : 'var(--green)';
+            const label  = isRest ? 'REST \u2014 BREATHE DEEPLY' : 'HOLD YOUR BREATH';
+            const sub    = isRest
+                ? 'Relax and breathe slowly through your nose'
+                : 'Stay calm — you have more oxygen than you think';
+
+            document.getElementById('phaseLabel').textContent = label;
+            document.getElementById('phaseLabel').style.color  = color;
+            document.getElementById('timerSub').textContent    = sub;
+            document.getElementById('ringPhase').textContent   = isRest ? 'REST' : 'HOLD';
+            document.getElementById('ringPhase').style.color   = color;
+            document.getElementById('ringFill').style.stroke   = color;
+            document.getElementById('ringWrap').className      = 'progress-ring-wrap ' + (isRest ? 'pulse-rest' : 'pulse-hold');
+
+            // Highlight active row
+            const numRounds = tableData.length;
+            for (let i = 0; i < numRounds; i++) {
+                ['rn','rr','rh','rt'].forEach(c => {
+                    const el = document.getElementById(c + i);
+                    if (el) el.classList.remove('active-row');
+                });
+            }
+            ['rn','rr','rh','rt'].forEach(c => {
+                const el = document.getElementById(c + step.roundIndex);
+                if (el) el.classList.add('active-row');
+            });
+
+            // Update round dots
+            for (let i = 0; i < step.roundIndex; i++) {
+                const d = document.getElementById('dot' + i);
+                if (d) { d.className = 'rdot done'; }
+            }
+            const curDot = document.getElementById('dot' + step.roundIndex);
+            if (curDot) curDot.className = 'rdot ' + (isRest ? 'rest' : 'hold');
+
+            updateRoundIndicator(step.roundIndex);
+            updateRing(secondsLeft, totalSeconds);
+        }
+
+        function runTick() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                secondsLeft--;
+                updateRing(secondsLeft, totalSeconds);
+
+                if (secondsLeft <= 0) {
+                    clearInterval(timerInterval);
+                    currentStep++;
+                    if (currentStep < steps.length) {
+                        loadStep(currentStep);
+                        runTick();
+                    } else {
+                        finishSession();
+                    }
+                }
+            }, 1000);
+        }
+
+        function updateRing(remaining, total) {
+            const frac   = total > 0 ? remaining / total : 0;
+            const offset = CIRCUMFERENCE * (1 - frac);
+            document.getElementById('ringFill').style.strokeDasharray  = CIRCUMFERENCE;
+            document.getElementById('ringFill').style.strokeDashoffset = offset;
+            document.getElementById('ringTime').textContent = fmt(remaining);
+        }
+
+        function updateRoundIndicator(roundIdx) {
+            document.getElementById('roundIndicator').textContent =
+                `Round ${roundIdx + 1} of ${tableData.length}`;
+        }
+
+        function finishSession() {
+            clearInterval(timerInterval);
+            document.getElementById('btnStart').disabled  = true;
+            document.getElementById('btnPause').disabled  = true;
+            document.getElementById('phaseLabel').textContent = '\u2705 SESSION COMPLETE!';
+            document.getElementById('phaseLabel').style.color = 'var(--green)';
+            document.getElementById('timerSub').textContent   = 'Great work — rest well.';
+            document.getElementById('ringWrap').className = 'progress-ring-wrap';
+
+            // All dots done
+            tableData.forEach((_, i) => {
+                const d = document.getElementById('dot' + i);
+                if (d) d.className = 'rdot done';
+            });
+
+            const totalMin = Math.floor(tableData.reduce((a, r) => a + r.rest + r.hold, 0) / 60);
+            const banner   = document.getElementById('completeBanner');
+            document.getElementById('completeSummary').textContent =
+                `You completed ${tableData.length} rounds of ${tableType.toUpperCase()} table training `
+                + `in approximately ${totalMin} minutes. Your lungs thank you!`;
+            banner.classList.add('show');
+        }
+    </script>
+
+</body>
+</html>

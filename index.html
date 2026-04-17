@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanner Petty | Finance Professional & Spearfisher</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy:  #0a2342;
+            --ocean: #1e6091;
+            --teal:  #168aad;
+            --cyan:  #48cae4;
+            --light: #f0f8ff;
+        }
+
+        body { font-family: 'Open Sans', sans-serif; color: #212529; }
+
+        /* ── Navbar ── */
+        .navbar { background-color: var(--navy) !important; }
+        .navbar-brand, .nav-link { color: #fff !important; font-family: 'Montserrat', sans-serif; }
+        .nav-link:hover { color: var(--cyan) !important; }
+        .navbar-toggler-icon { filter: invert(1); }
+
+        /* ── Hero ── */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a2342 0%, #1e6091 55%, #168aad 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1559825481-12a05cc00344?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            opacity: 0.22;
+        }
+        /* Tuna SVG decorative element */
+        .hero-tuna {
+            position: absolute;
+            right: -20px;
+            bottom: 0;
+            width: clamp(320px, 45vw, 620px);
+            opacity: 0.18;
+            z-index: 1;
+            pointer-events: none;
+        }
+        /* animated "bubbles" */
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 20% 80%, rgba(72,202,228,0.12) 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 20%, rgba(30,96,145,0.25) 0%, transparent 60%);
+        }
+        .hero-content { position: relative; z-index: 2; }
+
+        .hero-eyebrow {
+            display: inline-block;
+            background: rgba(72,202,228,0.15);
+            border: 1px solid rgba(72,202,228,0.4);
+            border-radius: 50px;
+            padding: 6px 22px;
+            color: var(--cyan);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            margin-bottom: 1.2rem;
+        }
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            color: #fff;
+            line-height: 1.1;
+        }
+        .hero .lead { color: rgba(255,255,255,0.88); font-size: 1.15rem; max-width: 540px; }
+
+        .btn-ocean {
+            background: var(--teal);
+            color: #fff;
+            border: none;
+            padding: 13px 34px;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .btn-ocean:hover { background: var(--cyan); color: var(--navy); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(72,202,228,0.38); }
+        .btn-ghost {
+            background: transparent;
+            border: 2px solid rgba(255,255,255,0.7);
+            color: #fff;
+            padding: 11px 32px;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .btn-ghost:hover { background: #fff; color: var(--navy); }
+
+        /* ── Section utilities ── */
+        .section-label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--navy);
+            font-size: 1.75rem;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        .section-label::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 48px;
+            height: 3px;
+            background: var(--teal);
+            border-radius: 2px;
+        }
+
+        /* ── About cards ── */
+        .info-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 1.75rem;
+            box-shadow: 0 3px 18px rgba(10,35,66,0.09);
+            border-left: 4px solid var(--teal);
+            height: 100%;
+            transition: transform 0.25s;
+        }
+        .info-card:hover { transform: translateY(-4px); }
+        .info-card h5 { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--navy); }
+        .info-card-icon { font-size: 1.8rem; color: var(--teal); margin-bottom: 0.75rem; }
+
+        /* ── Stats ── */
+        .stat-card {
+            background: var(--navy);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            color: #fff;
+            transition: transform 0.25s;
+        }
+        .stat-card:hover { transform: translateY(-5px); }
+        .stat-number { font-family: 'Montserrat', sans-serif; font-size: 2rem; font-weight: 800; color: var(--cyan); }
+        .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.65); margin-top: 4px; }
+
+        /* ── Passion (dark) section ── */
+        .passion-section { background: var(--navy); }
+        .passion-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 14px;
+            padding: 1.5rem;
+            height: 100%;
+            transition: all 0.28s;
+        }
+        .passion-card:hover { background: rgba(72,202,228,0.1); border-color: var(--cyan); transform: translateY(-5px); }
+        .passion-icon { font-size: 2rem; color: var(--cyan); margin-bottom: 0.7rem; }
+        .passion-card h6 { font-family: 'Montserrat', sans-serif; font-weight: 700; color: #fff; }
+        .passion-card p { color: rgba(255,255,255,0.72); font-size: 0.88rem; line-height: 1.65; margin: 0; }
+
+        /* ── Footer ── */
+        footer { background: #060f1a; color: rgba(255,255,255,0.6); }
+        footer a { color: var(--cyan); text-decoration: none; transition: color 0.2s; }
+        footer a:hover { color: #fff; }
+        .social-icon { font-size: 1.3rem; margin: 0 8px; }
+    </style>
+</head>
+<body>
+
+    <!-- ══════════════  NAVBAR  ══════════════ -->
+    <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="index.html">
+                <i class="fas fa-fish" style="color:var(--cyan)"></i>
+                Tanner Petty
+            </a>
+            <button class="navbar-toggler border-0" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarMain"
+                    aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav ms-auto gap-1">
+                    <li class="nav-item"><a class="nav-link fw-semibold px-3" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold px-3" href="resume.html">Resume</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold px-3" href="scratch.html">Spearfishing</a></li>
+                    <li class="nav-item"><a class="nav-link fw-semibold px-3" href="app.html">Dive App</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ══════════════  HERO  ══════════════ -->
+    <section class="hero">
+        <!-- Decorative tuna SVG (same style as a site mascot silhouette) -->
+        <svg class="hero-tuna" viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" fill="#48cae4">
+            <!-- body -->
+            <ellipse cx="370" cy="210" rx="300" ry="110"/>
+            <!-- tail fin -->
+            <polygon points="670,210 780,120 800,210 780,300"/>
+            <!-- top dorsal fin -->
+            <polygon points="200,105 300,40 420,100"/>
+            <!-- second dorsal fin -->
+            <polygon points="440,105 480,75 520,105"/>
+            <!-- pectoral fin -->
+            <polygon points="280,210 220,310 380,240"/>
+            <!-- anal fin -->
+            <polygon points="420,310 460,360 510,315"/>
+            <!-- eye -->
+            <circle cx="130" cy="195" r="22" fill="#0a2342"/>
+            <circle cx="122" cy="190" r="7" fill="#fff"/>
+            <!-- mouth line -->
+            <path d="M60,210 Q90,230 110,215" stroke="#0a2342" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <!-- yellow stripe detail -->
+            <path d="M100,210 Q370,170 660,210" stroke="#f4d03f" stroke-width="10" fill="none" opacity="0.5" stroke-linecap="round"/>
+            <!-- finlets near tail -->
+            <ellipse cx="595" cy="175" rx="18" ry="8" transform="rotate(-30 595 175)"/>
+            <ellipse cx="620" cy="160" rx="14" ry="6" transform="rotate(-35 620 160)"/>
+            <ellipse cx="595" cy="245" rx="18" ry="8" transform="rotate(30 595 245)"/>
+            <ellipse cx="620" cy="258" rx="14" ry="6" transform="rotate(35 620 258)"/>
+        </svg>
+        <div class="container hero-content py-5">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="hero-eyebrow">
+                        <i class="fas fa-anchor me-2"></i>Finance · Spearfishing · Leadership
+                    </div>
+                    <h1>Tanner T.<br>Petty</h1>
+                    <p class="lead my-4">
+                        Pre-Business student at BYU Marriott School of Business — analyst by day,
+                        spearfisher by passion. I bring the same precision underwater as I do to a financial model.
+                    </p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="resume.html" class="btn-ocean"><i class="fas fa-file-alt me-2"></i>View Resume</a>
+                        <a href="#about" class="btn-ghost"><i class="fas fa-chevron-down me-2"></i>Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════  ABOUT  ══════════════ -->
+    <section id="about" class="py-5" style="background:var(--light);">
+        <div class="container">
+            <div class="text-center mb-5">
+                <span class="section-label">About Me</span>
+                <p class="text-muted mt-4 mx-auto" style="max-width:600px;">
+                    Driven finance professional-in-training with real-world experience in real estate underwriting,
+                    credit analysis, and FP&amp;A — balanced by a deep love for the ocean and the outdoors.
+                </p>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <div class="col-md-4">
+                    <div class="info-card">
+                        <div class="info-card-icon"><i class="fas fa-graduation-cap"></i></div>
+                        <h5>Education</h5>
+                        <p class="fw-semibold mb-1">Brigham Young University</p>
+                        <p class="text-muted small mb-0">Marriott School of Business · Pre-Business<br>
+                        GPA: 3.64 / 4.00 · Expected Apr 2028</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-card">
+                        <div class="info-card-icon"><i class="fas fa-chart-line"></i></div>
+                        <h5>Finance Career</h5>
+                        <p class="fw-semibold mb-1">FP&amp;A · Real Estate · Credit</p>
+                        <p class="text-muted small mb-0">Integris Health · VARA Salon Suites<br>
+                        Tesani Companies · BackNine LLC</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="info-card">
+                        <div class="info-card-icon"><i class="fas fa-water"></i></div>
+                        <h5>Life Outside Work</h5>
+                        <p class="fw-semibold mb-1">Ocean · Golf · Mountains</p>
+                        <p class="text-muted small mb-0">Spearfisher · Eagle Scout · Golfer<br>
+                        Mountain Biker · Dutch Speaker</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats row -->
+            <div class="row g-3">
+                <div class="col-6 col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number">3.64</div>
+                        <div class="stat-label">GPA at BYU</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number">50 lbs</div>
+                        <div class="stat-label">Largest Yellowfin Tuna</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number">$43M</div>
+                        <div class="stat-label">Apartment Deal Analyzed</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-card">
+                        <div class="stat-number">500%</div>
+                        <div class="stat-label">Client Growth · BackNine</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════  SPEARFISHING PASSION  ══════════════ -->
+    <section class="passion-section py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold" style="font-family:'Montserrat',sans-serif; color:#fff;">
+                    Life Beneath the Surface
+                </h2>
+                <p style="color:rgba(255,255,255,0.72); max-width:600px;" class="mx-auto mt-3">
+                    Spearfishing is more than a hobby — it's a discipline that sharpens focus,
+                    demands precision, and forges a deep respect for the ocean ecosystem.
+                </p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="passion-card">
+                        <div class="passion-icon"><i class="fas fa-lungs"></i></div>
+                        <h6>Freediving</h6>
+                        <p>Spearfishing demands mastering breath-hold diving — a physical and mental test of focus, calm, and body awareness far below the surface.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="passion-card">
+                        <div class="passion-icon"><i class="fas fa-fish"></i></div>
+                        <h6>Big Game Hunting</h6>
+                        <p>From reef fish to open-water pelagics, I've hunted everything from California reefs to the open ocean — including a 50-pound yellowfin tuna.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="passion-card">
+                        <div class="passion-icon"><i class="fas fa-leaf"></i></div>
+                        <h6>Ocean Conservation</h6>
+                        <p>Spearfishers target specific fish, respect size limits, and avoid by-catch — making it one of the most sustainable forms of fishing on the planet.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════  CTA  ══════════════ -->
+    <section class="py-5" style="background:var(--light);">
+        <div class="container text-center">
+            <h3 class="fw-bold mb-3" style="font-family:'Montserrat',sans-serif; color:var(--navy);">
+                Want to Know More?
+            </h3>
+            <p class="text-muted mb-4">Explore my full resume or reach out directly.</p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="resume.html" class="btn-ocean">View Full Resume</a>
+                <a href="mailto:tpetty4@byu.edu" class="btn-ghost" style="border-color:var(--teal);color:var(--navy);">
+                    <i class="fas fa-envelope me-2"></i>Email Me
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════  FOOTER  ══════════════ -->
+    <footer class="py-4">
+        <div class="container text-center">
+            <p class="fw-bold mb-1" style="color:#fff;">Tanner T. Petty</p>
+            <p class="mb-3 small"><a href="mailto:tpetty4@byu.edu">tpetty4@byu.edu</a></p>
+            <div class="mb-3">
+                <a href="https://www.linkedin.com/in/petty-tanner" class="social-icon" aria-label="LinkedIn" target="_blank" rel="noopener">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/tannerpetty" class="social-icon" aria-label="GitHub" target="_blank" rel="noopener">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="mailto:tpetty4@byu.edu" class="social-icon" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            <p class="mb-0 small" style="color:rgba(255,255,255,0.3);">
+                &copy; 2025 Tanner T. Petty &nbsp;&middot;&nbsp; BYU IS 201
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

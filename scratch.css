@@ -1,0 +1,398 @@
+/* ============================================================
+   scratch.css — Custom stylesheet for Tanner Petty's
+   Spearfishing scratch page (no Bootstrap)
+   BYU IS 201
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Lato:ital,wght@0,400;0,700;1,400&display=swap');
+
+/* ── 1. Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Lato', Arial, sans-serif;
+    color: #1a2a3a;
+    background-color: #0a1f2e;   /* deep ocean behind the page wrapper */
+    line-height: 1.7;
+}
+
+/* ── 2. DIV — Page wrapper (centres content, white-ish background) ── */
+.page-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    background-color: #f0f8ff;
+    min-height: 100vh;
+    box-shadow: 0 0 60px rgba(0,0,0,0.5);
+}
+
+/* ── 3. Navigation ── */
+.scratch-nav {
+    background-color: #0a2342;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+.scratch-nav .nav-brand {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-right: auto;
+    text-decoration: none;
+}
+
+.scratch-nav a {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #48cae4;               /* ← font color spec */
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: color 0.2s;
+}
+
+.scratch-nav a:hover { color: #ffffff; }
+
+/* ── 4. Anchor jump-nav bar ── */
+.jump-nav {
+    background-color: #0f3460;
+    padding: 12px 32px;
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    border-bottom: 2px solid #48cae4;
+}
+
+.jump-nav a {
+    font-family: 'Oswald', sans-serif;   /* ← font family spec */
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #a8d8ea;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 2px;
+    transition: all 0.2s;
+}
+
+.jump-nav a:hover {
+    color: #48cae4;
+    border-bottom-color: #48cae4;
+}
+
+/* ── 5. Hero / Header ── */
+.scratch-hero {
+    background: linear-gradient(175deg, #0a2342 0%, #1e6091 55%, #168aad 100%);
+    color: #ffffff;
+    text-align: center;
+    padding: 90px 30px 70px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Unsplash fish background at low opacity */
+.scratch-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1559825481-12a05cc00344?auto=format&fit=crop&w=1920&q=80')
+                center / cover no-repeat;
+    opacity: 0.22;
+}
+
+.scratch-hero-content { position: relative; z-index: 1; }
+
+.scratch-hero h1 {
+    font-family: 'Oswald', sans-serif;    /* ← font family spec */
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 700;
+    color: #ffffff;                        /* ← font color spec */
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    margin-bottom: 16px;
+}
+
+.scratch-hero .tagline {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.82);
+    max-width: 580px;
+    margin: 0 auto 24px;
+}
+
+.hero-scroll-link {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.85rem;
+    color: #48cae4;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px dashed #48cae4;
+    padding-bottom: 2px;
+    transition: color 0.2s;
+}
+.hero-scroll-link:hover { color: #ffffff; border-bottom-color: #fff; }
+
+/* ── 6. DIV — General content section (light background) ── */
+.content-section {
+    padding: 54px 44px;
+    background-color: #f0f8ff;
+}
+
+.section-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: #0a2342;               /* ← font color spec */
+    border-left: 5px solid #48cae4;
+    padding-left: 16px;
+    margin-bottom: 22px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.content-section p {
+    font-family: 'Lato', sans-serif;
+    color: #2d3f50;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+/* ── 7. Images ── */
+.hero-image {
+    width: 100%;
+    max-width: 680px;
+    border-radius: 14px;
+    box-shadow: 0 10px 36px rgba(10,35,66,0.22);
+    display: block;
+    margin: 24px auto;
+    border: 3px solid #48cae4;
+}
+
+.caption {
+    text-align: center;
+    font-size: 0.8rem;
+    font-style: italic;
+    color: #6a8599;
+    margin-top: -10px;
+    margin-bottom: 18px;
+}
+
+/* ── 8. Lists ── */
+.steps-list {
+    font-family: 'Lato', sans-serif;
+    color: #1e3a5f;
+    padding-left: 22px;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    counter-reset: steps;
+}
+
+.steps-list > li {
+    margin-bottom: 14px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.steps-list > li span {
+    font-weight: 400;
+    color: #2d3f50;
+}
+
+.sub-list {
+    list-style-type: disc;
+    padding-left: 22px;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    font-weight: 400;
+    color: #3a5a7a;
+}
+
+.sub-list li { margin-bottom: 4px; }
+
+/* ── 9. Anchor link style ── */
+.anchor-link {
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.85rem;
+    color: #168aad;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 1px dashed #48cae4;
+    padding-bottom: 2px;
+    transition: color 0.2s;
+}
+.anchor-link:hover { color: #0a2342; }
+
+/* ── 10. Video wrapper ── */
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;   /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 14px;
+    box-shadow: 0 10px 36px rgba(10,35,66,0.22);
+    margin: 24px 0;
+    border: 3px solid rgba(72,202,228,0.3);
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* ── 11. DIV — Dark ocean panel ── */
+.ocean-panel {
+    background: linear-gradient(135deg, #0a2342 0%, #1a4f78 100%);
+    color: #ffffff;
+    padding: 54px 44px;
+}
+
+.ocean-panel h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #48cae4;             /* ← font color spec */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-left: 5px solid #48cae4;
+    padding-left: 16px;
+    margin-bottom: 20px;
+}
+
+.ocean-panel p {
+    font-family: 'Lato', sans-serif;
+    color: rgba(255,255,255,0.82);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+}
+
+.ocean-panel .story-callout {
+    background: rgba(72,202,228,0.1);
+    border: 1px solid rgba(72,202,228,0.3);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-style: italic;
+    color: rgba(255,255,255,0.88);
+    font-size: 1.02rem;
+}
+
+/* ── 12. Tableau section ── */
+.tableau-section {
+    padding: 54px 44px;
+    background-color: #e3eff7;
+}
+
+.tableau-section h2 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: #0a2342;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-left: 5px solid #48cae4;
+    padding-left: 16px;
+    margin-bottom: 12px;
+}
+
+.tableau-section p {
+    font-family: 'Lato', sans-serif;
+    color: #2d4052;
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin-bottom: 20px;
+}
+
+/* ── 13. DIV — App link card ── */
+.app-card {
+    background: #ffffff;
+    border: 2px solid #48cae4;
+    border-radius: 16px;
+    padding: 36px 28px;
+    text-align: center;
+    margin: 0 44px 20px;
+    box-shadow: 0 6px 24px rgba(10,35,66,0.1);
+}
+
+.app-card h3 {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #0a2342;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.app-card p {
+    font-family: 'Lato', sans-serif;
+    color: #4a6880;
+    font-size: 0.95rem;
+    max-width: 520px;
+    margin: 0 auto 24px;
+    line-height: 1.7;
+}
+
+.btn-launch {
+    display: inline-block;
+    background: #0a2342;
+    color: #ffffff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    text-decoration: none;
+    padding: 14px 40px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    border: 2px solid #0a2342;
+}
+
+.btn-launch:hover {
+    background: #168aad;
+    border-color: #168aad;
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(22,138,173,0.38);
+}
+
+/* ── 14. Footer ── */
+.scratch-footer {
+    background: #060f1a;
+    color: rgba(255,255,255,0.55);
+    text-align: center;
+    padding: 28px 20px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+}
+
+.scratch-footer a {
+    color: #48cae4;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.scratch-footer a:hover { color: #ffffff; }
+
+.scratch-footer strong { color: #ffffff; }
+
+/* ── 15. Responsive ── */
+@media (max-width: 768px) {
+    .scratch-hero { padding: 60px 20px 50px; }
+    .content-section { padding: 36px 22px; }
+    .ocean-panel { padding: 36px 22px; }
+    .tableau-section { padding: 36px 22px; }
+    .app-card { margin: 0 20px 20px; }
+    .scratch-nav { padding: 12px 18px; }
+    .jump-nav { padding: 10px 18px; gap: 16px; }
+}
